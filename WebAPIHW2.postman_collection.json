@@ -1,0 +1,136 @@
+{
+	"info": {
+		"name": "WebAPIHW2",
+		"_postman_id": "3aca8ce5-5405-bf26-0d5d-6d633eb04418",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e057f115-3e31-4b9b-a7db-b23b2bda9693",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"var id = jsonData.items[0].id;",
+							"Response_id = id;",
+							"postman.setEnvironmentVariable(\"id\",id);",
+							"for(i = 0; i < jsonData.items.length; i++)",
+							"{",
+							"var testname = \"Book \" + i + \" has Turing in the title\";",
+							"var title = jsonData.items[i].volumeInfo.title;",
+							"console.log(\"Title: \" + title);",
+							"var patt = /turing/i;",
+							"var res = patt.test(title);",
+							"tests[testname] = (res === true);",
+							"}",
+							"",
+							"",
+							"",
+							"tests[\"Response Code 200\"] = responseCode.code === 200;",
+							"tests[\"Response Time below 500ms\"] = pm.response.responseTime < 500;",
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "db56ca5e-2f8e-4ce5-a665-7475d06acd79",
+						"type": "text/javascript",
+						"exec": [
+							"pm.environment.set(\"book_title\",\"Turing\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://www.googleapis.com/books/v1/volumes?q={{book_title}}",
+					"protocol": "https",
+					"host": [
+						"www",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"books",
+						"v1",
+						"volumes"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "{{book_title}}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Volume",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e762e230-0219-4129-aaad-d25ffc702e19",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a44e8778-5265-451f-81f9-2979f60816a5",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"var id2 = jsonData.id;",
+							"Response_id = postman.getEnvironmentVariable(\"id\");",
+							"console.log(\"ID: \" + id2);",
+							"console.log(\"PreviousID: \" + Response_id);",
+							"tests[\"Response Code 200\"] = responseCode.code === 200;",
+							"tests[\"Response Time below 500ms\"] = pm.response.responseTime < 500;",
+							"tests[\"ReponseID matches Book's ID value\"] = (id2 === Response_id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://www.googleapis.com/books/v1/volumes/{{id}}",
+					"protocol": "https",
+					"host": [
+						"www",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"books",
+						"v1",
+						"volumes",
+						"{{id}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

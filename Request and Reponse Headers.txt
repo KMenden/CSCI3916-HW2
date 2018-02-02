@@ -1,0 +1,24 @@
+--Request Headers--
+cache-control: "no-cache" - Controls how the caching mechanisms are controlled in both response and request headers, no-cache specifically forces the cache to submit the request to the origin server for validation.
+postman-token:"483be0f7-16fa-4e88-a4c7-3f04b61b5219" - A bug in the chrome browser regarding requests was side stepped by sending a random token along with the request.
+user-agent:"PostmanRuntime/7.1.1" - Identifies what is making the request (Operating system, software vendor, application type etc.) to the network.
+accept:"*/*" - Advertises what content types the client can understand
+host:"www.googleapis.com" - Identifies the domain name of the server
+accept-encoding:"gzip, deflate" - Advertises which content encoding the client can understand
+
+--Response Headers--
+expires:"Thu, 01 Feb 2018 21:08:36 GMT" - Contains the time and date for when the response is expired, or stale.
+date:"Thu, 01 Feb 2018 21:08:36 GMT" - When the message was created
+cache-control:"private, max-age=0, must-revalidate, no-transform" - controls how the caching mechanism are controlled for both response and request, private meaning it is for a single user
+etag:""f6QLsd8inUgRKJVNBqJ8xHnPb0w/6rJxkmM6kAgCz3vgTMt3i30Wz8k"" - Identifies the version of the resource, allows more efficient caching and for preventing mid-air collisions when updating resources
+vary: - Determines how to match future request headers
+0:"Origin" - these two are a part of vary header
+1:"X-Origin"
+content-type:"application/json; charset=UTF-8" - The media type of the resource
+content-encoding:"gzip" - How the content was compressed
+x-content-type-options:"nosniff" - Used as a marker by the server to indicate that content type should not be changed
+x-frame-options:"SAMEORIGIN" - Determines if a browser should be allowed to render a page in <frame>, <iframe>, or <object>. Can be used to prevent clickjacking attacks
+x-xss-protection:"1; mode=block" - Stops a page from loading if a supported browser detects a reflected cross site scripting attack
+server:"GSE" - Contains information about the software used to handle the request
+alt-svc:"hq=":443"; ma=2592000; quic=51303431; quic=51303339; quic=51303338; quic=51303337; quic=51303335,quic=":443"; ma=2592000; v="41,39,38,37,35"" - Allows an origin's resource to be located at a different net
+transfer-encoding:"chunked" - Specifies which encoding to use when transferring the entity to the client
